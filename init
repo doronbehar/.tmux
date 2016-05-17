@@ -1,0 +1,22 @@
+# make the escape-time in vim within tmux lower
+set-option -sg escape-time 0
+set-option -g default-terminal "screen-256color"
+set-option -g xterm-keys on
+
+# setup powerline:
+#source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf
+source /usr/share/powerline/bindings/tmux/powerline.conf
+
+# Key bindings:
+source ~/.tmux/bindings
+
+# plugins:
+# - better search experience:
+run-shell ~/.tmux/search/plugin
+# - add option to yank text into system clipboard
+run-shell ~/.tmux/yank/plugin
+# - add option to open urls
+run-shell ~/.tmux/open-url/plugin
+# - save and restore the tmux environment
+run-shell ~/.tmux/resurrect/plugin
+# vim:ft=tmux

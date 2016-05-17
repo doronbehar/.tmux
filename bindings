@@ -1,0 +1,72 @@
+# change prefix-key:
+set-option -g prefix C-d
+unbind-key C-b
+bind-key C-d send-prefix
+set-option -g mode-keys vi
+
+# key-bindings for manipulating windows and panes
+# - unbind old keys:
+unbind-key p
+unbind-key n
+unbind-key M-Up
+unbind-key M-Down
+unbind-key M-Left
+unbind-key M-Right
+unbind-key C-Up
+unbind-key C-Down
+unbind-key C-Left
+unbind-key C-Right
+unbind-key Up
+unbind-key Down
+unbind-key Left
+unbind-key Right
+# - bind page-up and page-down recursively for window navigation:
+bind-key -n C-PageUp previous-window
+bind-key -n C-PageDown next-window
+# - bind Shift+PageUp/PageDown for moving windows around like in chrome:
+bind-key -n M-PageUp swap-window -t -1
+bind-key -n M-PageDown swap-window -t +1
+# resizing panes in the true spirit of vim:
+bind-key -r -n M-Right resize-pane -R
+bind-key -r -n M-Left resize-pane -L
+bind-key -r -n M-Down resize-pane -D
+bind-key -r -n M-Up resize-pane -U
+# Stolen from: https://github.com/joedicastro/dotfiles/blob/master/tmux/.tmux.conf
+bind-key -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-h) || tmux select-pane -L"
+bind-key -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"
+bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
+bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
+unbind-key M-1
+unbind-key M-2
+unbind-key M-3
+unbind-key M-4
+unbind-key M-5
+bind-key | resize-pane -x 200
+bind-key _ resize-pane -y 200
+unbind-key [
+unbind-key ]
+bind-key C-c copy-mode
+bind-key C-v paste-buffer
+
+# make the use of e and w more like in my .vimrc
+bind-key -t vi-copy e next-word
+bind-key -t vi-copy w previous-word
+
+# make new windows/panes open in the same
+# dirctory in which they were opened from:
+bind-key c new-window -c '#{pane_current_path}'
+bind-key '"' split-window -c '#{pane_current_path}'
+bind-key % split-window -h -c '#{pane_current_path}'
+
+# make renaming window process easier
+bind-key , command-prompt -I "rename-window "
+# make renaming current session easier:
+bind-key '$' command-prompt -I "rename-session "
+
+# Enable running a command in all panes and windows:
+bind E command-prompt -p "Command:" \
+	"run  \"tmux list-sessions                  -F '##{session_name}'        | xargs -I SESS \
+			tmux list-windows  -t SESS          -F 'SESS:##{window_index}'   | xargs -I SESS_WIN \
+			tmux list-panes    -t SESS_WIN      -F 'SESS_WIN.##{pane_index}' | xargs -I SESS_WIN_PANE \
+			tmux send-keys     -t SESS_WIN_PANE '%1' Enter\""
+# vim:ft=tmux
