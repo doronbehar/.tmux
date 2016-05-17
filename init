@@ -12,7 +12,7 @@ source ~/.tmux/bindings
 
 # plugins:
 # - better search experience:
-run-shell ~/.tmux/search/plugin
+run-shell ~/.tmux/copycat/plugin
 # - add option to yank text into system clipboard
 run-shell ~/.tmux/yank/plugin
 # - add option to open urls
