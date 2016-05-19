@@ -4,10 +4,16 @@ set-option -g default-terminal "screen-256color"
 set-option -g xterm-keys on
 
 # setup powerline:
-run-shell ~/.tmux/powerline
-
+if '[ -f /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf ]' 'source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf'
+if '[ -f /usr/share/powerline/bindings/tmux/powerline.conf ]' 'source /usr/share/powerline/bindings/tmux/powerline.conf'
 # Key bindings:
 source ~/.tmux/bindings
+
+# local configurations:
+if '[ -f ~/.tmux/local ]' 'source ~/.tmux/local'
+
+# History file:
+set-option -g history-file ~/.tmux/history
 
 # plugins:
 # - better search experience:
@@ -15,7 +21,7 @@ run-shell ~/.tmux/copycat/plugin
 # - add option to yank text into system clipboard
 run-shell ~/.tmux/yank/plugin
 # - add option to open urls
-run-shell ~/.tmux/open-url/plugin
+run-shell ~/.tmux/open/plugin
 # - save and restore the tmux environment
 run-shell ~/.tmux/resurrect/plugin
 # vim:ft=tmux
