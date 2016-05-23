@@ -23,6 +23,8 @@ unbind-key Right
 # - bind page-up and page-down recursively for window navigation:
 bind-key -n C-PageUp previous-window
 bind-key -n C-PageDown next-window
+bind-key -n M-h previous-window
+bind-key -n M-l next-window
 # - bind Shift+PageUp/PageDown for moving windows around like in chrome:
 bind-key -n M-PageUp swap-window -t -1
 bind-key -n M-PageDown swap-window -t +1

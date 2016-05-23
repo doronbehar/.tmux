@@ -2,6 +2,7 @@
 set-option -sg escape-time 0
 set-option -g default-terminal "screen-256color"
 set-option -g xterm-keys on
+set-option -g history-limit 5000
 
 # setup powerline:
 if '[ -f /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf ]' 'source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf'
@@ -11,9 +12,6 @@ source ~/.tmux/bindings
 
 # local configurations:
 if '[ -f ~/.tmux/local ]' 'source ~/.tmux/local'
-
-# History file:
-set-option -g history-file ~/.tmux/history
 
 # plugins:
 # - better search experience:
