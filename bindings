@@ -53,6 +53,8 @@ bind-key C-v paste-buffer
 # make the use of e and w more like in my .vimrc
 bind-key -t vi-copy e next-word
 bind-key -t vi-copy w previous-word
+bind-key -t vi-copy E next-space
+bind-key -t vi-copy W previous-space
 
 # make new windows/panes open in the same
 # dirctory in which they were opened from:
@@ -64,6 +66,8 @@ bind-key % split-window -h -c '#{pane_current_path}'
 bind-key , command-prompt -I "rename-window "
 # make renaming current session easier:
 bind-key '$' command-prompt -I "rename-session "
+# quiting a pane like in my awesome bindings:
+bind-key -n M-q confirm-before -p "kill current pane? (y/n)" kill-pane
 
 # Enable running a command in all panes and windows:
 bind E command-prompt -p "Command:" \
