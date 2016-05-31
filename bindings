@@ -4,52 +4,57 @@ unbind-key C-b
 bind-key C-d send-prefix
 set-option -g mode-keys vi
 
-# key-bindings for manipulating windows and panes
-# - unbind old keys:
+# window navigation like in chrome:
 unbind-key p
 unbind-key n
-unbind-key M-Up
-unbind-key M-Down
-unbind-key M-Left
-unbind-key M-Right
-unbind-key C-Up
-unbind-key C-Down
-unbind-key C-Left
-unbind-key C-Right
-unbind-key Up
-unbind-key Down
-unbind-key Left
-unbind-key Right
-# - bind page-up and page-down recursively for window navigation:
 bind-key -n C-PageUp previous-window
 bind-key -n C-PageDown next-window
 bind-key -n M-h previous-window
 bind-key -n M-l next-window
-# - bind Shift+PageUp/PageDown for moving windows around like in chrome:
+
+# moving windows around like in chrome:
 bind-key -n M-PageUp swap-window -t -1
 bind-key -n M-PageDown swap-window -t +1
-# resizing panes in the true spirit of vim:
+
+# resizing panes
+unbind-key C-Up
+unbind-key C-Down
+unbind-key C-Left
+unbind-key C-Right
+unbind-key M-Up
+unbind-key M-Down
+unbind-key M-Left
+unbind-key M-Right
 bind-key -r -n M-Right resize-pane -R
 bind-key -r -n M-Left resize-pane -L
 bind-key -r -n M-Down resize-pane -D
 bind-key -r -n M-Up resize-pane -U
+bind-key -r -n M-i resize-pane -R
+bind-key -r -n M-u resize-pane -L
+bind-key -r -n M-j resize-pane -D
+bind-key -r -n M-k resize-pane -U
+bind-key | resize-pane -x 200
+bind-key _ resize-pane -y 200
+
+# Other manipulation for panes:
+# Stolen from: http://superuser.com/questions/266567/tmux-how-can-i-link-a-window-as-split-window
+bind-key j command-prompt -p "create pane from:" "join-pane -s ':%%'"
+
 # Stolen from: https://github.com/joedicastro/dotfiles/blob/master/tmux/.tmux.conf
+unbind-key Up
+unbind-key Down
+unbind-key Left
+unbind-key Right
 bind-key -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-h) || tmux select-pane -L"
 bind-key -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"
 bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
 bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
-unbind-key M-1
-unbind-key M-2
-unbind-key M-3
-unbind-key M-4
-unbind-key M-5
-bind-key | resize-pane -x 200
-bind-key _ resize-pane -y 200
+
+# copy mode:
 unbind-key [
 unbind-key ]
 bind-key C-c copy-mode
 bind-key C-v paste-buffer
-
 # make the use of e and w more like in my .vimrc
 bind-key -t vi-copy e next-word
 bind-key -t vi-copy w previous-word
