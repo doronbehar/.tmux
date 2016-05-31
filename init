@@ -21,5 +21,7 @@ run-shell ~/.tmux/yank/plugin
 # - add option to open urls
 run-shell ~/.tmux/open/plugin
 # - save and restore the tmux environment
+set -g @resurrect-dir '~/.tmux/sessions'
 run-shell ~/.tmux/resurrect/plugin
+
 # vim:ft=tmux
