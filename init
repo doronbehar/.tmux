@@ -1,6 +1,6 @@
 # make the escape-time in vim within tmux lower
 set-option -sg escape-time 0
-set-option -g default-terminal "screen-256color"
+set-option -g default-terminal "tmux-256color"
 set-option -g xterm-keys on
 set-option -g history-limit 5000
 
