@@ -1,7 +1,7 @@
 # change prefix-key:
-set-option -g prefix C-d
+set-option -g prefix C-s
 unbind-key C-b
-bind-key C-d send-prefix
+bind-key C-s send-prefix
 set-option -g mode-keys vi
 
 # window navigation like in chrome:
@@ -15,6 +15,8 @@ bind-key -n M-l next-window
 # moving windows around like in chrome:
 bind-key -n M-PageUp swap-window -t -1
 bind-key -n M-PageDown swap-window -t +1
+bind-key -n C-S-PageUp swap-window -t -1
+bind-key -n C-S-PageDown swap-window -t +1
 
 # resizing panes
 unbind-key C-Up
@@ -53,8 +55,8 @@ bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -
 # copy mode:
 unbind-key [
 unbind-key ]
-bind-key C-c copy-mode
-bind-key C-v paste-buffer
+bind-key c copy-mode
+bind-key p paste-buffer
 # make the use of e and w more like in my .vimrc
 bind-key -t vi-copy e next-word
 bind-key -t vi-copy w previous-word
@@ -63,12 +65,13 @@ bind-key -t vi-copy W previous-space
 
 # make new windows/panes open in the same
 # dirctory in which they were opened from:
-bind-key c new-window -c '#{pane_current_path}'
+bind-key n new-window -c '#{pane_current_path}'
 bind-key '"' split-window -c '#{pane_current_path}'
 bind-key % split-window -h -c '#{pane_current_path}'
 
 # make renaming window process easier
 bind-key , command-prompt -I "rename-window "
+bind-key -n M-r command-prompt -I "rename-window "
 # make renaming current session easier:
 bind-key '$' command-prompt -I "rename-session "
 # quiting a pane like in my awesome bindings:
