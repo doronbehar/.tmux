@@ -31,10 +31,6 @@ bind-key -n M-Right resize-pane -R
 bind-key -n M-Left resize-pane -L
 bind-key -n M-Down resize-pane -D
 bind-key -n M-Up resize-pane -U
-bind-key -n M-i resize-pane -R
-bind-key -n M-u resize-pane -L
-bind-key -n M-j resize-pane -D
-bind-key -n M-k resize-pane -U
 bind-key | resize-pane -x 200
 bind-key _ resize-pane -y 200
 
