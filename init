@@ -13,15 +13,4 @@ source ~/.tmux/bindings
 # local configurations:
 if '[ -f ~/.tmux/local ]' 'source ~/.tmux/local'
 
-# plugins:
-# - better search experience:
-run-shell ~/.tmux/copycat/plugin
-# - add option to yank text into system clipboard
-run-shell ~/.tmux/yank/plugin
-# - add option to open urls
-run-shell ~/.tmux/open/plugin
-# - save and restore the tmux environment
-set -g @resurrect-dir '~/.tmux/sessions'
-run-shell ~/.tmux/resurrect/plugin
-
 # vim:ft=tmux
