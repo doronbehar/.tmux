@@ -3,6 +3,8 @@ set-option -sg escape-time 0
 set-option -g default-terminal "tmux-256color"
 set-option -g xterm-keys on
 set-option -g history-limit 5000
+# Taken from https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux
+set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 
 # setup powerline:
 if '[ -f /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf ]' 'source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf'
