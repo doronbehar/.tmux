@@ -6,13 +6,12 @@ set-option -g history-limit 5000
 # Taken from https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 
-# setup powerline:
-if '[ -f /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf ]' 'source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf'
-if '[ -f /usr/share/powerline/bindings/tmux/powerline.conf ]' 'source /usr/share/powerline/bindings/tmux/powerline.conf'
+# Theme:
+source ~/.tmux/theme.tmux
 # Key bindings:
-source ~/.tmux/bindings
+source ~/.tmux/bindings.tmux
 
 # local configurations:
-if '[ -f ~/.tmux/local ]' 'source ~/.tmux/local'
+if '[ -f ~/.tmux/local.tmux ]' 'source ~/.tmux/local.tmux'
 
 # vim:ft=tmux
