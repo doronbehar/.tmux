@@ -5,15 +5,14 @@ bind-key C-s send-prefix
 set-option -g mode-keys vi
 # }}}
 
-# {{{1 General unbindings
+# {{{1 General
 # Show clock (who the hell uses it?)
 unbind-key t
 # run commands faster
 bind-key -n M-r command-prompt
 # }}}1
 
-# {{{1 Clients
-# {{{2 Navigation
+# {{{1 Clients Navigation
 # Switch to the last client (using 'M-[' and 'M-]' for next/previous clients)
 unbind-key L
 # Switch to the previous client
@@ -25,7 +24,7 @@ bind-key -n M-] switch-client -n
 # Choose Session from a tree
 unbind-key s
 bind-key -n M-s choose-tree
-# {{{2 Manipulation
+# {{{1 Clients Manipulation
 # Choose a client to detach
 unbind-key D
 # Detach client
@@ -38,8 +37,7 @@ bind-key -n M-z suspend-client
 bind-key '$' command-prompt -I "rename-session "
 # }}}1
 
-# {{{1 Windows
-# {{{2 Navigation
+# {{{1 Windows Navigation
 unbind-key p
 unbind-key n
 bind-key -n C-PageUp previous-window
@@ -68,7 +66,7 @@ bind-key -n M-f command-prompt -I "find-window "
 # Choose window from a list
 unbind-key w
 bind-key -n M-w choose-window
-# {{{2 Manipulation
+# {{{1 Windows Manipulation
 bind-key -n M-PageUp swap-window -t -1
 bind-key -n M-PageDown swap-window -t +1
 bind-key -n C-S-PageUp swap-window -t -1
@@ -99,8 +97,7 @@ unbind-key M-o
 #bind-key R rotate-window -D
 # }}}1
 
-# {{{1 Panes
-# {{{2 Navigation
+# {{{1 Panes Navigation
 # Stolen from: https://github.com/joedicastro/dotfiles/blob/master/tmux/.tmux.conf
 unbind-key Up
 unbind-key Down
@@ -112,7 +109,7 @@ bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -
 bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
 # Display panes
 unbind-key q
-# {{{2 Manipulation
+# {{{1 Panes Manipulation
 # Clear the marked pane
 unbind-key M
 # select the next pane in the current window
@@ -166,14 +163,14 @@ unbind-key M-5
 unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
-bind-key -t vi-copy y copy-pipe 'xclip -in -selection clipboard'
+bind -T copy-mode-vi y send-keys -X copy-pipe "xclip -selection clipboard"
 unbind-key ]
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
-bind-key -t vi-copy e next-word
-bind-key -t vi-copy w previous-word
-bind-key -t vi-copy E next-space
-bind-key -t vi-copy W previous-space
+bind-key -T copy-mode-vi e send-keys -X next-word
+bind-key -T copy-mode-vi w send-keys -X previous-word
+bind-key -T copy-mode-vi E send-keys -X next-space
+bind-key -T copy-mode-vi W send-keys -X previous-space
 # Show paste buffers
 unbind-key '#'
 bind-key @ show-buffer
@@ -190,7 +187,7 @@ bind-key E command-prompt -p "Command:" \
 			tmux list-panes    -t SESS_WIN      -F 'SESS_WIN.##{pane_index}' | xargs -I SESS_WIN_PANE \
 			tmux send-keys     -t SESS_WIN_PANE '%1' Enter\""
 # reload configuration
-bind-key R source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
+bind-key R display 'sourcing ~/.tmux.conf' \; source-file ~/.tmux.conf
 # }}}1
 
 # vim:ft=tmux:foldmethod=marker
