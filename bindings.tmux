@@ -15,24 +15,7 @@ bind-key -n M-r command-prompt
 # {{{1 Clients Navigation
 # Switch to the last client (using 'M-[' and 'M-]' for next/previous clients)
 unbind-key L
-# Switch to the previous client
-unbind-key (
-bind-key -n M-[ switch-client -p
-# Switch to the next client
-unbind-key )
-bind-key -n M-] switch-client -n
-# Choose Session from a tree
-unbind-key s
-bind-key -n M-s choose-tree
 # {{{1 Clients Manipulation
-# Choose a client to detach
-unbind-key D
-# Detach client
-unbind-key d
-bind-key -n M-d detach-client
-# Suspend the client
-unbind-key C-z
-bind-key -n M-z suspend-client
 # make renaming current session easier:
 bind-key '$' command-prompt -I "rename-session "
 # }}}1
@@ -60,12 +43,6 @@ unbind-key 6
 unbind-key 7
 unbind-key 8
 unbind-key 9
-# Prompt to search for text in open windows
-unbind-key f
-bind-key -n M-f command-prompt -I "find-window "
-# Choose window from a list
-unbind-key w
-bind-key -n M-w choose-window
 # {{{1 Windows Manipulation
 bind-key -n M-PageUp swap-window -t -1
 bind-key -n M-PageDown swap-window -t +1
@@ -86,15 +63,14 @@ bind-key -n M-n new-window -c '#{pane_current_path}'
 # make renaming windows and session process easier
 unbind-key ,
 bind-key r command-prompt -I "rename-window "
-# Killing a window
+# Killing a window: Safer to unbind it and bind only `kill-pane` with confirmation
 unbind-key &
-bind-key -n M-q confirm-before -p "kill-window #W? (y/n)" kill-window
 # Rotate the panes in the current window forwards
 unbind-key C-o
-#bind-key r rotate-window -U
+bind-key r rotate-window -U
 # Rotate the panes in the current window backwards
 unbind-key M-o
-#bind-key R rotate-window -D
+bind-key R rotate-window -D
 # }}}1
 
 # {{{1 Panes Navigation
@@ -110,14 +86,8 @@ bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -
 # Display panes
 unbind-key q
 # {{{1 Panes Manipulation
-# Clear the marked pane
-unbind-key M
 # select the next pane in the current window
 unbind-key o
-# Prompt for a window index to select
-unbind-key "'"
-# switch to the last pane
-unbind-key \;
 # Resizing the pane in steps of 1 cell
 unbind-key C-Up
 unbind-key C-Down
@@ -139,19 +109,18 @@ bind-key _ resize-pane -y 200
 # Other manipulation for panes:
 # Stolen from: http://superuser.com/questions/266567/tmux-how-can-i-link-a-window-as-split-window
 bind-key j command-prompt -p "create pane from:" "join-pane -s ':%%'"
-unbind-key !
 # Take the current pane and create a new window out of it.
+unbind-key !
 bind-key b break-pane
 # Kill the current pane
 unbind-key x
-bind-key -n M-x confirm-before -p "kill-pane #P? (y/n)" kill-pane
+bind-key -n M-q confirm-before -p "kill-pane #P? (y/n)" kill-pane
 #}}}1
 
 # {{{1 Layouts
 # Change panes layout
 unbind-key space
 bind-key -n M-space next-layout
-bind-key -n C-space previous-layout
 unbind-key M-1
 unbind-key M-2
 unbind-key M-3
@@ -163,7 +132,7 @@ unbind-key M-5
 unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
-bind -T copy-mode-vi y send-keys -X copy-pipe "xclip -selection clipboard"
+bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -selection clipboard"
 unbind-key ]
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
