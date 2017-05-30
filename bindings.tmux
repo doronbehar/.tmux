@@ -62,7 +62,7 @@ unbind-key c
 bind-key -n M-n new-window -c '#{pane_current_path}'
 # make renaming windows and session process easier
 unbind-key ,
-bind-key r command-prompt -I "rename-window "
+bind-key n command-prompt -I "rename-window "
 # Killing a window: Safer to unbind it and bind only `kill-pane` with confirmation
 unbind-key &
 # Rotate the panes in the current window forwards
