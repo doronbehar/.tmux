@@ -5,6 +5,8 @@ if-shell '[ -z $DISPLAY ]' 'set-option -g default-terminal "tmux"' 'set-option -
 set-option -g history-limit 5000
 # Taken from https://github.com/neovim/neovim/wiki/FAQ#cursor-shape-doesnt-change-in-tmux
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+# As explaind here: https://unix.stackexchange.com/a/383044/135796
+set -g focus-events on
 
 # Theme:
 source ~/.tmux/theme.tmux
