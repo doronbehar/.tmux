@@ -139,7 +139,8 @@ unbind-key M-5
 unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
-bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -selection clipboard"
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
 unbind-key ]
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
