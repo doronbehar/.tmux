@@ -72,6 +72,10 @@ bind-key r rotate-window -U
 unbind-key M-o
 bind-key R rotate-window -D
 # }}}1
+# {{{ Windows configuration
+# better format for automatic windows names
+set-option -g automatic-rename-format '#{b:pane_current_path} :: #{pane_current_command}'
+# }}}
 
 # {{{1 Panes Navigation
 # Stolen from: https://github.com/joedicastro/dotfiles/blob/master/tmux/.tmux.conf
