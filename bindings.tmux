@@ -143,7 +143,13 @@ unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
 bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+if-shell 'type xclip' \
+	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"'
+if-shell 'type xsel' \
+	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"'
+if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E (xsel|xclip)' \
+	'' \
+	'bind-key -T copy-mode-vi y display-message "Error: xclip and xsel are not installed"'
 unbind-key ]
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
