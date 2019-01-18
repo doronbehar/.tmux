@@ -147,7 +147,7 @@ if-shell 'type xclip' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"'
 if-shell 'type xsel' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"'
-if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E (xsel|xclip)' \
+if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip)"' \
 	'' \
 	'bind-key -T copy-mode-vi y display-message "Error: xclip and xsel are not installed"'
 unbind-key ]
