@@ -50,16 +50,15 @@ bind-key -n C-S-PageUp swap-window -t -1
 bind-key -n C-S-PageDown swap-window -t +1
 # Prompt for an index to move the current window
 unbind-key .
-# splitting vertically
+# splitting vertically (relies on tmux set-environment TMUXPWD_${TMUX_PANE} "$PWD" on every change of directory in the shell)
 unbind-key '"'
-bind-key v split-window -v -c '#{pane_current_path}'
-#bind-key s split-window -v -c '#{pane_current_path}' # (Extremley vim like)
-# Splitting horizontally
+bind-key v run-shell 'tmux split-window -v -c "$(tmux show-environment TMUXPWD_#{pane_id} | cut -d= -f2)"'
+# Splitting horizontally (relies on tmux set-environment TMUXPWD_${TMUX_PANE} "$PWD" on every change of directory in the shell)
 unbind-key %
-bind-key h split-window -h -c '#{pane_current_path}'
-# Creating new window
+bind-key h run-shell 'tmux split-window -h -c "$(tmux show-environment TMUXPWD_#{pane_id} | cut -d= -f2)"'
+# Creating new window (relies on tmux set-environment TMUXPWD_${TMUX_PANE} "$PWD" on every change of directory in the shell)
 unbind-key c
-bind-key -n M-n new-window -c '#{pane_current_path}'
+bind-key -n M-n run-shell 'tmux new-window -c "$(tmux show-environment TMUXPWD_#{pane_id} | cut -d= -f2)"'
 # make renaming windows and session process easier
 unbind-key ,
 bind-key n command-prompt -I "rename-window "
