@@ -13,5 +13,7 @@ set -g focus-events on
 source ~/.tmux/theme.tmux
 # Key bindings:
 source ~/.tmux/bindings.tmux
+# URL fzf selection
+run-shell ~/.tmux/fzf-url/fzf-url.tmux
 
 # vim:ft=tmux
