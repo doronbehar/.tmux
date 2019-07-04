@@ -21,9 +21,6 @@ if [ $? == 0 ] || [ $pane_count == 1 ]; then
     '-R')
       vim_key='C-l'
       ;;
-    '-l')
-      vim_key='C-\'
-      ;;
   esac
   # forward the keystroke to Vim
   tmux send-keys "$vim_key"

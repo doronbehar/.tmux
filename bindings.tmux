@@ -87,12 +87,10 @@ bind-key -n C-h run-shell "${HOME}/.tmux/vim-select-pane.sh -L"
 bind-key -n C-j run-shell "${HOME}/.tmux/vim-select-pane.sh -D"
 bind-key -n C-k run-shell "${HOME}/.tmux/vim-select-pane.sh -U"
 bind-key -n C-l run-shell "${HOME}/.tmux/vim-select-pane.sh -R"
-bind-key -n C-\ run-shell "${HOME}/.tmux/vim-select-pane.sh -l"
 bind-key -T copy-mode-vi C-h select-pane -L
 bind-key -T copy-mode-vi C-j select-pane -D
 bind-key -T copy-mode-vi C-k select-pane -U
 bind-key -T copy-mode-vi C-l select-pane -R
-bind-key -T copy-mode-vi C-\ select-pane -l
 # Display panes
 unbind-key q
 # {{{1 Panes Manipulation
