@@ -9,6 +9,12 @@ if-shell '[[ $TERM =~ "-256color" ]]' 'set -g default-terminal tmux-256color'
 # As explaind here: https://unix.stackexchange.com/a/383044/135796
 set -g focus-events on
 
+set-option -g update-environment "DIRENV_DIFF DIRENV_DIR DIRENV_WATCHES"
+set-environment -gu DIRENV_DIFF
+set-environment -gu DIRENV_DIR
+set-environment -gu DIRENV_WATCHES
+set-environment -gu DIRENV_LAYOUT
+
 # Theme:
 source ~/.tmux/theme.tmux
 # Key bindings:
