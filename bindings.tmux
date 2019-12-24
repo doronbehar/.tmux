@@ -44,10 +44,10 @@ unbind-key 7
 unbind-key 8
 unbind-key 9
 # {{{1 Windows Manipulation
-bind-key -n M-PageUp swap-window -t -1
-bind-key -n M-PageDown swap-window -t +1
-bind-key -n C-S-PageUp swap-window -t -1
-bind-key -n C-S-PageDown swap-window -t +1
+bind-key -n M-PageUp { swap-window -t -1; previous-window }
+bind-key -n M-PageDown { swap-window -t +1; next-window }
+bind-key -n C-S-PageUp { swap-window -t -1; previous-window }
+bind-key -n C-S-PageDown { swap-window -t +1; next-window }
 # Prompt for an index to move the current window
 unbind-key .
 # splitting vertically
