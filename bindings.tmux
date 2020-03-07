@@ -45,7 +45,9 @@ unbind-key 8
 unbind-key 9
 # {{{1 Windows Manipulation
 # See https://unix.stackexchange.com/a/525770/135796 for reason of version check
-if-shell -b '[ $(printf "%d" ${$(tmux display-message -p "#{version}")//[a-z]}) -ge 3 ]' " \
+# See https://stackoverflow.com/a/40902312/4935114 for how we parse version this way
+run-shell 'tmux setenv -g TMUX_VERSION $(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ $(printf "%d" "$TMUX_VERSION") -ge 3 ]' " \
     bind-key -n M-PageUp { swap-window -t -1; previous-window }; \
     bind-key -n M-PageDown { swap-window -t +1; next-window }; \
     bind-key -n C-S-PageUp { swap-window -t -1; previous-window }; \
