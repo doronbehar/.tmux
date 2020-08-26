@@ -155,9 +155,11 @@ if-shell 'type xclip' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"'
 if-shell 'type xsel' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"'
-if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip)"' \
+if-shell 'type wl-copy' \
+	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"'
+if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy)"' \
 	'' \
-	'bind-key -T copy-mode-vi y display-message "Error: xclip and xsel are not installed"'
+	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
 unbind-key ]
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
