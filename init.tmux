@@ -20,7 +20,5 @@ set-environment -gu DIRENV_LAYOUT
 source ~/.tmux/theme.tmux
 # Key bindings:
 source ~/.tmux/bindings.tmux
-# URL fzf selection
-run-shell ~/.tmux/fzf-url/fzf-url.tmux
 
 # vim:ft=tmux
