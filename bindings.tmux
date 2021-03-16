@@ -162,7 +162,7 @@ if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy)"' \
 	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
 unbind-key ]
 # The best script there is: https://github.com/dequis/tmux-url-select
-bind-key -n M-- run-shell tmux-url-select
+bind-key -n M-- run-shell ~/.local/bin/tmux-url-select
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
 bind-key -T copy-mode-vi e send-keys -X next-word
