@@ -157,7 +157,9 @@ if-shell 'type xsel' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"'
 if-shell 'type wl-copy' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"'
-if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy)"' \
+if-shell 'type clip.exe' \
+	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"'
+if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
 	'' \
 	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
 unbind-key ]
