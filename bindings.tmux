@@ -48,14 +48,14 @@ unbind-key 9
 # See https://stackoverflow.com/a/40902312/4935114 for how we parse version this way
 run-shell 'if echo $TMUX | grep -q tmux; then executable=tmux; else executable=tmate; fi; $executable setenv -g TMUX_VERSION $($executable -V | sed -En "s/^$executable ([0-9]+(.[0-9]+)?).*/\1/p"); $executable setenv -g TMUX_EXE $executable'
 if-shell -b '[ $(printf "%d" "$TMUX_VERSION") -ge 3 ]' " \
-    bind-key -n M-PageUp { swap-window -t -1; previous-window }; \
-    bind-key -n M-PageDown { swap-window -t +1; next-window }; \
-    bind-key -n C-S-PageUp { swap-window -t -1; previous-window }; \
-    bind-key -n C-S-PageDown { swap-window -t +1; next-window }" " \
-    bind-key -n M-PageUp swap-window -t -1; \
-    bind-key -n M-PageDown swap-window -t +1; \
-    bind-key -n C-S-PageUp swap-window -t -1; \
-    bind-key -n C-S-PageDown swap-window -t +1"
+	bind-key -n M-PageUp { swap-window -t -1; previous-window }; \
+	bind-key -n M-PageDown { swap-window -t +1; next-window }; \
+	bind-key -n C-S-PageUp { swap-window -t -1; previous-window }; \
+	bind-key -n C-S-PageDown { swap-window -t +1; next-window }" " \
+	bind-key -n M-PageUp swap-window -t -1; \
+	bind-key -n M-PageDown swap-window -t +1; \
+	bind-key -n C-S-PageUp swap-window -t -1; \
+	bind-key -n C-S-PageDown swap-window -t +1"
 # Prompt for an index to move the current window
 unbind-key .
 # splitting vertically
@@ -150,16 +150,15 @@ unbind-key M-5
 unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-if-shell 'type xclip' \
+if-shell 'type xclip && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"'
-if-shell 'type xsel' \
+if-shell 'type xsel && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"'
-if-shell 'type wl-copy' \
+if-shell 'type wl-copy && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"'
-if-shell 'type clip.exe' \
+if-shell 'type clip.exe && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"'
-if-shell '$TMUX_EXE list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
+if-shell '[[ "$TMUX_EXE" == tmate ]] || $TMUX_EXE list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
 	'' \
 	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
 unbind-key ]
@@ -167,10 +166,15 @@ unbind-key ]
 bind-key -n M-- run-shell ~/.local/bin/tmux-url-select
 bind-key -n M-p paste-buffer
 # make the use of e and w more like in my .vimrc
-bind-key -T copy-mode-vi e send-keys -X next-word
-bind-key -T copy-mode-vi w send-keys -X previous-word
-bind-key -T copy-mode-vi E send-keys -X next-space
-bind-key -T copy-mode-vi W send-keys -X previous-space
+if-shell '[[ "$TMUX_EXE" == "tmux" ]]' " \
+	bind-key -T copy-mode-vi e send-keys -X next-word; \
+	bind-key -T copy-mode-vi w send-keys -X previous-word; \
+	bind-key -T copy-mode-vi E send-keys -X next-space; \
+	bind-key -T copy-mode-vi W send-keys -X previous-space" " \
+	bind-key -t vi-copy e next-word; \
+	bind-key -t vi-copy w previous-word; \
+	bind-key -t vi-copy E next-space; \
+	bind-key -t vi-copy W previous-space"
 # Show paste buffers
 unbind-key '#'
 bind-key @ show-buffer
