@@ -46,7 +46,7 @@ unbind-key 9
 # {{{1 Windows Manipulation
 # See https://unix.stackexchange.com/a/525770/135796 for reason of version check
 # See https://stackoverflow.com/a/40902312/4935114 for how we parse version this way
-run-shell 'tmux setenv -g TMUX_VERSION $(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+run-shell 'if echo $TMUX | grep -q tmux; then executable=tmux; else executable=tmate; fi; $executable setenv -g TMUX_VERSION $($executable -V | sed -En "s/^$executable ([0-9]+(.[0-9]+)?).*/\1/p"); $executable setenv -g TMUX_EXE $executable'
 if-shell -b '[ $(printf "%d" "$TMUX_VERSION") -ge 3 ]' " \
     bind-key -n M-PageUp { swap-window -t -1; previous-window }; \
     bind-key -n M-PageDown { swap-window -t +1; next-window }; \
@@ -159,7 +159,7 @@ if-shell 'type wl-copy' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"'
 if-shell 'type clip.exe' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"'
-if-shell 'tmux list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
+if-shell '$TMUX_EXE list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
 	'' \
 	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
 unbind-key ]
