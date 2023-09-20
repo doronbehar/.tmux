@@ -158,6 +158,8 @@ if-shell 'type wl-copy && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"'
 if-shell 'type clip.exe && [[ "$TMUX_EXE" == tmux ]]' \
 	'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe"'
+if-shell '[[ "$TMUX_EXE" == tmate ]]' \
+	'set-environment -g TMUX_URL_SELECT_TMUX_CMD tmate'
 if-shell '[[ "$TMUX_EXE" == tmate ]] || $TMUX_EXE list-keys -T copy-mode-vi | grep -q -E "(xsel|xclip|wl-copy|clip.exe)"' \
 	'' \
 	'bind-key -T copy-mode-vi y display-message "Error: Nor xclip / xsel / wl-copy are installed"'
