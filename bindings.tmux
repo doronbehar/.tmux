@@ -149,8 +149,11 @@ bind-key -n M-c copy-mode
 unbind-key ]
 # The best script there is: https://github.com/dequis/tmux-url-select
 bind-key -n M-- run-shell ~/.local/bin/tmux-url-select
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "tmux load-buffer -"
+if-shell '[[ "$TMUX_EXE" == "tmux" ]]' " \
+	bind-key -T copy-mode-vi v send-keys -X begin-selection; \
+	bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'tmux load-buffer -'" " \
+	bind-key -t vi-copy v begin-selection; \
+	bind-key -t vi-copy y copy-pipe 'tmux load-buffer -'"
 # make the use of e and w more like in my .vimrc
 if-shell '[[ "$TMUX_EXE" == "tmux" ]]' " \
 	bind-key -T copy-mode-vi e send-keys -X next-word; \
