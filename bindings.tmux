@@ -147,7 +147,7 @@ unbind-key [
 unbind-key PageUp
 bind-key -n M-c copy-mode
 unbind-key ]
-# The best script there is: https://github.com/dequis/tmux-url-select
+# The best script there is: https://github.com/doronbehar/tmux-url-select
 bind-key -n M-- run-shell ~/.local/bin/tmux-url-select
 if-shell '[[ "$TMUX_EXE" == "tmux" ]]' " \
 	bind-key -T copy-mode-vi v send-keys -X begin-selection; \
